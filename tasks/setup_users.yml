@@ -11,7 +11,7 @@
 
 - name: Allow anonymous write access for push messages on UnifiedPush
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
@@ -24,7 +24,7 @@
 
 - name: Get existing ntfy users
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
@@ -49,7 +49,7 @@
 
 - name: Create ntfy users
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
@@ -66,7 +66,7 @@
 
 - name: Write ntfy users passwords
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
@@ -83,7 +83,7 @@
 
 - name: Write ntfy users roles
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
@@ -104,7 +104,7 @@
 
 - name: Delete unwanted ntfy users
   ansible.builtin.command: |
-    {{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} run \
+    {{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} run \
     --rm \
     --user={{ ntfy_uid }}:{{ ntfy_gid }} \
     --mount type=bind,src={{ ntfy_config_path }},dst=/etc/ntfy,ro \
