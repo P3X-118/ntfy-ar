@@ -67,6 +67,7 @@
     name: "{{ ntfy_container_network }}"
     driver: bridge
     driver_options: "{{ sysd_docker_net_driver_opts }}"
+  register: ntfy_network_creation_result
 
 - name: Ensure ntfy container network is created via ansible.builtin.command
   when: sysd_docker_net_creation_method == 'command'
@@ -76,9 +77,9 @@
       {% if sysd_docker_ipv6_enabled %}--ipv6{% endif %}
       {{ sysd_docker_net_driver_opts_string }}
       {{ ntfy_container_network }}
-  register: network_creation_result
-  changed_when: network_creation_result.rc == 0
-  failed_when: network_creation_result.rc != 0 and 'already exists' not in network_creation_result.stderr
+  register: ntfy_network_creation_result
+  changed_when: ntfy_network_creation_result.rc == 0
+  failed_when: ntfy_network_creation_result.rc != 0 and 'already exists' not in ntfy_network_creation_result.stderr
 
 - name: Ensure ntfy systemd service is present
   ansible.builtin.template:

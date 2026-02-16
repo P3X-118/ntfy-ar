@@ -20,7 +20,7 @@ ntfy_cache_path: "{{ ntfy_base_path }}/cache"
 ntfy_attachment_cache_path: "{{ ntfy_cache_path }}/attachments"
 
 # renovate: datasource=docker depName=docker.io/binwiederhier/ntfy
-ntfy_version: v2.16.0
+ntfy_version: v2.17.0
 
 ntfy_uid: ""
 ntfy_gid: ""
@@ -49,6 +49,9 @@ ntfy_container_image_force_pull: "{{ ntfy_container_image.endswith(':latest') }}
 
 # The base container network. It will be auto-created by this role if it doesn't exist already.
 ntfy_container_network: "{{ ntfy_identifier }}"
+
+# Control if the container network is deleted on uninstalling.
+ntfy_container_network_deletion_enabled: true
 
 # Specify how the container publishes its HTTP port (as defined by `ntfy_container_http_port`).
 #
