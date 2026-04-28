@@ -19,8 +19,7 @@ DefaultDependencies=no
 [Service]
 Type=simple
 Environment="HOME={{ sysd_docker_unit_home_path }}"
-ExecStartPre=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} stop -t {{ sysd_docker_stop_grace }} {{ ntfy_identifier }} 2>/dev/null || true'
-ExecStartPre=-{{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} rm {{ ntfy_identifier }} 2>/dev/null || true'
+ExecStartPre={{ sysd_docker_host_sh }} -c '{{ ntfy_container_cleanup_command | trim | replace("\n", " ") }}'
 
 ExecStartPre={{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} create \
       --rm \
@@ -41,7 +40,7 @@ ExecStartPre={{ sysd_docker_host_sh }} -c '{{ sysd_docker_host_command }} create
       --mount type=bind,src={{ ntfy_data_path }},dst=/data \
       --mount type=bind,src={{ ntfy_cache_path }},dst=/cache \
       {% for volume in ntfy_container_additional_volumes %}
-      --mount type={{ volume.type | default('bind' if '/' in volume.src else 'volume') }},src={{ volume.src }},dst={{ volume.dst }}{{ (',' + volume.options) if volume.options else '' }} \
+      --mount type={{ volume.type | default('bind' if '/' in volume.src else 'volume') }},src={{ volume.src }},dst={{ volume.dst }}{{ (',' + volume.options) if volume.options | default('') else '' }} \
       {% endfor %}
       {% for arg in ntfy_container_extra_arguments %}
       {{ arg }} \
